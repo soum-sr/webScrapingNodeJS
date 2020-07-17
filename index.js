@@ -2,11 +2,10 @@ const request = require("request-promise")
 const cheerio = require("cheerio")
 
 // file system
-const fs = require(fs)
+const fs = require("fs")
 const json2csv = require("json2csv").Parser;
 
-const movie = "https://www.imdb.com/title/tt7286456/?ref_=rvi_tt"
-
+const movie = "https://www.imdb.com/title/tt7286456/?ref_=rvi_tt";
 (async () => {
     let imdbData = []
     const response = await request({
@@ -17,5 +16,25 @@ const movie = "https://www.imdb.com/title/tt7286456/?ref_=rvi_tt"
             "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
         },
         gzip:true
-    })
-})();
+    });
+
+    let $ = cheerio.load(response);
+    let title = $('div[class="title_wrapper"] > h1').text().trim()
+    let summary = $('div[class="summary_text"]').text().trim()
+    let rating = $('div[class="ratingValue"] > strong > span').text()
+    let releaseDate = $('a[title="See more release dates"]').text().trim()
+
+    imdbData.push({
+        title,
+        rating,
+        summary,
+        releaseDate
+    });
+
+    const j2csv = new json2csv()
+    const csv = j2csv.parse(imdbData)
+
+    fs.writeFileSync("./imdb.csv", csv, "utf-8")
+}
+
+)();
