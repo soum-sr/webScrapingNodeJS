@@ -5,9 +5,18 @@ const cheerio = require("cheerio")
 const fs = require("fs")
 const json2csv = require("json2csv").Parser;
 
-const movie = "https://www.imdb.com/title/tt7286456/?ref_=rvi_tt";
+const movies = [
+    "https://www.imdb.com/title/tt7286456/?ref_=rvi_tt",
+    "https://www.imdb.com/title/tt0993846/?ref_=tt_sims_tti",
+    "https://www.imdb.com/title/tt4154756/?ref_=tt_sims_tti"
+
+];
+
 (async () => {
     let imdbData = []
+    
+    for (let movie of movies){
+
     const response = await request({
         uri:movie,
         headers:{
@@ -30,6 +39,7 @@ const movie = "https://www.imdb.com/title/tt7286456/?ref_=rvi_tt";
         summary,
         releaseDate
     });
+    }
 
     const j2csv = new json2csv()
     const csv = j2csv.parse(imdbData)
