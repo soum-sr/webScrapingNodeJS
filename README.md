@@ -1,7 +1,7 @@
 # webScrapingNodeJS
 Scrape movie title, rating, summary and releaseDate from imdb website and store it to a csv file using nodejs.
 
-- Add list of links to imdb movies in <b>index.js</b> at:
+- Add links of movies from imdb in <b>index.js</b> at:
 ```
 const movies = [
     "Link to movie 1",
@@ -13,4 +13,4 @@ const movies = [
 ```
 node index.js
 ```
-
+- result will be stored in <b>imdb.csv</b>
