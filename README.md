@@ -13,4 +13,4 @@ const movies = [
 ```
 node index.js
 ```
-- result will be stored in <b>imdb.csv</b>
+- results will be stored in <b>imdb.csv</b>
